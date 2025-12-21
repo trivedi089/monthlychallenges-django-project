@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-
+from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 # Create your views here.
 def index(request):
     return HttpResponse("Exercise daily for 20 minutes")
@@ -20,7 +21,11 @@ def monthly_challenge(request, month):
     return HttpResponse(challenge_text)
 
 def monthly_challenge_by_number(request, month):
-    return HttpResponse(f"Month number: {month}")
+    months = list(monthly_challenges_dict.keys())
+    if(month>len(months)):
+        return HttpResponse("Invalid month")
+    redirect_month = months[month-1] #0-based-indexing
+    return HttpResponseRedirect("/challenges/" + redirect_month) #redirects it
 
 monthly_challenges_dict = {
     "january" : "Exercise daily for 20 minutes",
@@ -34,6 +39,6 @@ def monthly_challenge_dictionary_method(request, month):
         challenge_text = monthly_challenges_dict[month]
         return HttpResponse(challenge_text)
     except:
-        return HttpResponse("Not found", status=404)
+        return HttpResponse("Not found")
 
 
