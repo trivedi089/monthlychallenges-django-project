@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
+from django.urls import reverse
 # Create your views here.
 def index(request):
     return HttpResponse("Exercise daily for 20 minutes")
@@ -25,7 +26,8 @@ def monthly_challenge_by_number(request, month):
     if(month>len(months)):
         return HttpResponse("Invalid month")
     redirect_month = months[month-1] #0-based-indexing
-    return HttpResponseRedirect("/challenges/" + redirect_month) #redirects it
+    redirect_path = reverse("month-challenge",args = [redirect_month]) #challenge/january
+    return HttpResponseRedirect(redirect_path) #loose coupling
 
 monthly_challenges_dict = {
     "january" : "Exercise daily for 20 minutes",
