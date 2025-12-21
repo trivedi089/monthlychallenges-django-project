@@ -21,3 +21,19 @@ def monthly_challenge(request, month):
 
 def monthly_challenge_by_number(request, month):
     return HttpResponse(f"Month number: {month}")
+
+monthly_challenges_dict = {
+    "january" : "Exercise daily for 20 minutes",
+    "feburaury" : "No fast food for entire month",
+    "march" : "Wake up early and do meditation",
+    "april" : "Exercise daily for 20 minutes",
+}
+
+def monthly_challenge_dictionary_method(request, month):
+    try:
+        challenge_text = monthly_challenges_dict[month]
+        return HttpResponse(challenge_text)
+    except:
+        return HttpResponse("Not found", status=404)
+
+

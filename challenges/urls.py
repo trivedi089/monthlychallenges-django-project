@@ -8,5 +8,4 @@ urlpatterns = [
 
     path("<int:month>/",views.monthly_challenge_by_number), #this should be first otherwise django will treat it as string
     path("<str:month>/", views.monthly_challenge),
-
 ]
