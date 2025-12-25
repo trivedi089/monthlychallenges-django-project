@@ -4,7 +4,18 @@ from django.http import HttpResponse
 from django.urls import reverse
 # Create your views here.
 def index(request):
-    return HttpResponse("Exercise daily for 20 minutes")
+    list_items = ""
+    months = list(monthly_challenges_dict.keys())
+
+    for month in months:
+        capitalized_month = month.capitalize()
+        month_path = reverse("month-challenge", args=[month])
+        list_items += f"<li><a href=\"{month_path}\">{capitalized_month}</a></li>"
+
+    # "<li><a href="...">January</a></li><li><a href="...">February</a></li>..."
+
+    response_data = f"<ul>{list_items}</ul>"
+    return HttpResponse(response_data)
 
 def feb_challenge(request):
     return HttpResponse("No fast food for entire month")
